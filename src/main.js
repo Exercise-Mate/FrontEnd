@@ -1,6 +1,3 @@
-import 'bootstrap/dist/css/bootstrap.css';
-import 'vue-awesome-paginate/dist/style.css';
-
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import VueAwesomePaginate from 'vue-awesome-paginate';
