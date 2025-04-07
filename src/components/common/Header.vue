@@ -8,9 +8,21 @@
         <router-link to="/shop">
             Shop
         </router-link>
+        &nbsp;
+        <router-link to="/appointment">
+            Appointment
+        </router-link>
+        &nbsp;
+        <router-link to="/myclub">
+            My Clubs(임시)
+        </router-link>
+        &nbsp;
+        <router-link to="/myAppointments">
+            My Appointments(임시)
+        </router-link>
         <hr>
-    </div>  
-  </template>
-  
-  <script setup>
-  </script>
+    </div>
+</template>
+
+<script setup>
+</script>
