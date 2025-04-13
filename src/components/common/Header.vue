@@ -24,6 +24,10 @@
         <router-link to="/joinedClubs">
             Joined Clubs
         </router-link>
+        &nbsp;
+        <router-link to="/joinedAppointments">
+            Joined Appointments
+        </router-link>
         <hr>
     </div>
 </template>
