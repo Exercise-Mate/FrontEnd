@@ -1,8 +1,9 @@
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import VueAwesomePaginate from 'vue-awesome-paginate';
-import 'bootstrap'
-import 'bootstrap/dist/css/bootstrap.min.css'
+// TODO: 테마 적용이 안돼서 임시 주석 처리
+// import 'bootstrap'
+// import 'bootstrap/dist/css/bootstrap.min.css'
 
 import App from './App.vue';
 import router from './router';
