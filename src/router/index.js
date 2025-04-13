@@ -6,7 +6,6 @@ import AppointmentRoute from "@/router/Appointment";
 import MyClubsPage from "@/pages/MyClubsPage.vue";
 import MyAppointmentsPage from "@/pages/promise/MyAppointmentsPage.vue";
 import JoinedClubsPage from "@/pages/club/JoinedClubsPage.vue";
-import JoinedAppointmentsPage from "@/pages/promise/JoinedAppointmentsPage.vue";
 
 const router = createRouter({
   history: createWebHistory(),
