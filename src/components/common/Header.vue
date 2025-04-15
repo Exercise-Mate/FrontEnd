@@ -20,13 +20,17 @@
         <router-link to="/myAppointments">
             My Appointments(임시)
         </router-link>
-        &nbsp;
+        <br><br>
         <router-link to="/joinedClubs">
             Joined Clubs
         </router-link>
         &nbsp;
         <router-link to="/joinedAppointments">
             Joined Appointments
+        </router-link>
+        &nbsp;
+        <router-link to="/profile">
+            Profile
         </router-link>
         <hr>
     </div>
