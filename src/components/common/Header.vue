@@ -21,8 +21,8 @@
             My Appointments(임시)
         </router-link>
         &nbsp;
-        <router-link to="/joinedAppointments">
-            Joined Appointments
+        <router-link to="/joinedClubs">
+            Joined Clubs
         </router-link>
         <hr>
     </div>
