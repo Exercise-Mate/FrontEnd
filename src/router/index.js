@@ -5,6 +5,7 @@ import Appointment from "@/pages/promise/AppointmentPage.vue";
 import AppointmentRoute from "@/router/Appointment";
 import MyClubsPage from "@/pages/MyClubsPage.vue";
 import MyAppointmentsPage from "@/pages/promise/MyAppointmentsPage.vue";
+import JoinedClubsPage from "@/pages/club/JoinedClubsPage.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -18,6 +19,9 @@ const router = createRouter({
       name: "MyCreatedAppointment",
       component: MyAppointmentsPage,
     },
+    // (임시) 아래 두 줄을 다른 라우터 파일에 분리?
+    { path: "/joinedClubs", name: "JoinedClubs", component: JoinedClubsPage },
+
     ...AppointmentRoute,
     // { path: '/input', name: "Input", component: Input },
     // { path: '/input2', name: "Input2", component: Input2 },
