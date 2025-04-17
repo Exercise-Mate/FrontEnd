@@ -24,7 +24,7 @@ const router = createRouter({
     // (임시) 아래 두 줄을 다른 라우터 파일에 분리?
     { path: "/joinedClubs", name: "JoinedClubs", component: JoinedClubsPage },
     { path: "/joinedAppointments", name: "JoinedAppointments", component: JoinedAppointmentsPage },
-    { path: "/profile", name: "Profile", component: ProfilePage },
+    { path: "/profile/:id", name: "Profile", component: ProfilePage },
 
     ...AppointmentRoute,
     // { path: '/input', name: "Input", component: Input },

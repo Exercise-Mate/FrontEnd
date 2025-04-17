@@ -29,7 +29,7 @@
             Joined Appointments
         </router-link>
         &nbsp;
-        <router-link to="/profile">
+        <router-link to="/profile/1">
             Profile
         </router-link>
         <hr>

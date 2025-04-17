@@ -52,7 +52,7 @@
                 <article v-for="(appointment, index) in filteredAppointments" :key="index"
                     class="row g-0 border-0 card-hover card-lifted" style="height: 200px;">
                     <div class="col-sm-4 bg-repeat-0 bg-size-cover bg-position-center rounded-5"
-                        :style="{ backgroundImage: `url(${appointment.imageUrl})` }">
+                        :style="{ backgroundImage: `url(${appointment.clubImgUrl})` }">
                     </div>
 
                     <div class="col d-flex flex-column ms-3 pt-1 pb-1">
@@ -73,8 +73,8 @@
 
                         <div class="d-flex align-items-center flex-wrap ps-sm-4 pe-lg-4" style="flex: 1;">
                             <span class="rounded-circle bg-size-cover bg-position-center flex-shrink-0"
-                                :style="{ backgroundImage: `url(${appointment.authorImage})`, width: '40px', height: '40px' }"></span>
-                            <span class="ms-3 fs-sm">{{ appointment.author }}</span>
+                                :style="{ backgroundImage: `url(${appointment.memberImgUrl})`, width: '40px', height: '40px' }"></span>
+                            <span class="ms-3 fs-sm">{{ appointment.nickname }}</span>
 
                             <span class="opacity-20 mx-3">|</span>
                             <span class="badge text-nav fs-xs border">{{ appointment.sport }}</span>
@@ -105,8 +105,8 @@ const currentUser = ref('슬램덩커');
 const selectedAuthor = ref('all'); // 기본값으로 '모두' 선택
 const selectedIsEvaluated = ref(null); // 기본값으로 null(모두) 선택
 
-const selectAuthor = (author) => {
-    selectedAuthor.value = author;
+const selectAuthor = (nickname) => {
+    selectedAuthor.value = nickname;
 };
 
 const selectIsEvaluated = (isEvaluated) => {
@@ -119,9 +119,9 @@ const appointments = ref([
         id: 1,
         title: '4일 금요일 호수공원 러닝 뛰실 분',
         description: '호수공원에서 함께 러닝할 분을 모집합니다. 제가 잘 못해서.. 페이스 맞춰서 뛰실 초보분들 환영해요. 6분 페이스정도요',
-        imageUrl: 'assets/img/blog/list/04.jpg',
-        author: '러닝요정',
-        authorImage: 'assets/img/avatar/03.jpg',
+        clubImgUrl: 'assets/img/blog/list/04.jpg',  // 약속에는 img가 없음 -> 약속이 소속된 클럽 이미지를 띄우자?
+        nickname: '러닝요정',
+        memberImgUrl: 'assets/img/avatar/03.jpg',
         sport: '러닝',
         location: '수원 영통구',
         createdAt: '2025-04-01 10:30',
@@ -133,9 +133,9 @@ const appointments = ref([
         id: 2,
         title: '3:3이나 4:4 농구, 즐기며 플레이!',
         description: '내일 저녁 서울 마포구 홍대 근처에서 캐주얼 농구 함께 하실 분! 실력보다 즐기는 분위기를 중요시하는 약속입니다.',
-        imageUrl: 'assets/img/blog/list/06.jpg',
-        author: '슬램덩커',
-        authorImage: 'assets/img/avatar/09.jpg',
+        clubImgUrl: 'assets/img/blog/list/06.jpg',
+        nickname: '슬램덩커',
+        memberImgUrl: 'assets/img/avatar/09.jpg',
         sport: '농구',
         location: '서울 마포구',
         createdAt: '2025-04-02 14:15',
@@ -147,9 +147,9 @@ const appointments = ref([
         id: 3,
         title: '주말에 2:2 테니스 치실 분',
         description: '서울 강서구 테니스 코트에서 주말 저녁 약속을 진행합니다. 코트 예약과 매칭이 준비된 편한 운동 약속이에요.',
-        imageUrl: 'assets/img/blog/list/05.jpg',
-        author: '라켓의정석',
-        authorImage: 'assets/img/avatar/14.jpg',
+        clubImgUrl: 'assets/img/blog/list/05.jpg',
+        nickname: '라켓의정석',
+        memberImgUrl: 'assets/img/avatar/14.jpg',
         sport: '테니스',
         location: '서울 강서구',
         createdAt: '2025-04-03 18:00',
@@ -161,9 +161,9 @@ const appointments = ref([
         id: 4,
         title: '다음주 주말 낮에 야외 클라이밍장 가실 분',
         description: '경기 양평에서 야외 암벽 클라이밍 하실 분 모집! 클라이밍과 함께 캠핑·등산도 함께 즐기는 여유로운 약속입니다.',
-        imageUrl: 'assets/img/blog/list/03.jpg',
-        author: '마운틴러버',
-        authorImage: 'assets/img/avatar/06.jpg',
+        clubImgUrl: 'assets/img/blog/list/03.jpg',
+        nickname: '마운틴러버',
+        memberImgUrl: 'assets/img/avatar/06.jpg',
         sport: '클라이밍',
         location: '경기 양평',
         createdAt: '2025-04-04 09:45',
@@ -175,9 +175,9 @@ const appointments = ref([
         id: 5,
         title: '풋살 번개 구해요. 오늘 저녁 8시',
         description: '서울 송파구 풋살장 번개 모집! 빠르게 모여 경기를 즐기는 즉석 약속입니다. 실력 무관, 경기만 즐기고 싶은 분 환영!',
-        imageUrl: 'assets/img/blog/list/01.jpg',
-        author: '즉석경기러',
-        authorImage: 'assets/img/avatar/10.jpg',
+        clubImgUrl: 'assets/img/blog/list/01.jpg',
+        nickname: '즉석경기러',
+        memberImgUrl: 'assets/img/avatar/10.jpg',
         sport: '풋살',
         location: '서울 송파구',
         createdAt: '2025-04-05 19:20',
@@ -193,9 +193,9 @@ const filteredAppointments = computed(() => {
 
     // 작성자 필터
     if (selectedAuthor.value === 'self') {
-        result = result.filter(appointment => appointment.author === currentUser.value);
+        result = result.filter(appointment => appointment.nickname === currentUser.value);
     } else if (selectedAuthor.value === 'others') {
-        result = result.filter(appointment => appointment.author !== currentUser.value);
+        result = result.filter(appointment => appointment.nickname !== currentUser.value);
     }
 
     // 평가 여부 필터
