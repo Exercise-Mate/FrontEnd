@@ -18,11 +18,7 @@
                             </div>
                             <span class="badge border text-nav mt-4 ms-4">{{ member.location }}</span>
 
-                            <!-- 배지 스타일 -->
-                            <!-- <span class="badge border text-info ms-4">약속 참여 <span class="badge bg-info ms-2">{{ member.participationCount }}</span></span> -->
-                            <button type="button" class="btn btn-sm btn-outline-secondary ms-4">
-                                약속 참여<span class="badge bg-info ms-2">{{ member.participationCount }}</span>
-                            </button>
+                            <span class="badge border text-info ms-4">약속 참여 <span class="badge bg-info ms-2">{{ member.participationCount }}</span></span>
                         </div>
 
                         <button class="btn btn-sm btn-secondary ms-auto" style="margin-top: -55px;"
