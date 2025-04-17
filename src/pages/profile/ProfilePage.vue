@@ -25,7 +25,8 @@
                             </button>
                         </div>
 
-                        <button class="btn btn-sm btn-secondary ms-auto" style="margin-top: -55px;">
+                        <button class="btn btn-sm btn-secondary ms-auto" style="margin-top: -55px;"
+                            @click="$router.push('/profile/edit')">
                             <i class="ai-edit ms-n1 me-2"></i>프로필 수정
                         </button>
                     </div>
@@ -36,7 +37,7 @@
                 </div>
 
                 <span v-for="sport in member.sports" :key="sport" class="badge text-nav fs-xs mt-4 me-4 sport">{{ sport
-                }}</span>
+                    }}</span>
             </div>
         </section>
 
@@ -111,7 +112,7 @@
             </div>
         </section>
 
-        <div class="manner-rating">
+        <section class="manner-rating">
             <h3 class="text-center mb-5 fw-bold mt-5">받은 매너 평가</h3>
 
             <div class="rating-items">
@@ -131,7 +132,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     </div>
 </template>
 

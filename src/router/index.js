@@ -8,6 +8,7 @@ import MyAppointmentsPage from "@/pages/promise/MyAppointmentsPage.vue";
 import JoinedClubsPage from "@/pages/club/JoinedClubsPage.vue";
 import JoinedAppointmentsPage from "@/pages/promise/JoinedAppointmentsPage.vue";
 import ProfilePage from "@/pages/profile/ProfilePage.vue";
+import ProfileEditPage from "@/pages/profile/ProfileEditPage.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -25,6 +26,7 @@ const router = createRouter({
     { path: "/joinedClubs", name: "JoinedClubs", component: JoinedClubsPage },
     { path: "/joinedAppointments", name: "JoinedAppointments", component: JoinedAppointmentsPage },
     { path: "/profile/:id", name: "Profile", component: ProfilePage },
+    { path: "/profile/edit", name: "ProfileEdit", component: ProfileEditPage },
 
     ...AppointmentRoute,
     // { path: '/input', name: "Input", component: Input },

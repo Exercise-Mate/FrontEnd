@@ -32,6 +32,10 @@
         <router-link to="/profile/1">
             Profile
         </router-link>
+        &nbsp;
+        <router-link to="/profile/edit">
+            Profile Edit
+        </router-link>
         <hr>
     </div>
 </template>
