@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <section class="card border-0 py-1 p-md-2 p-xl-3 p-xxl-4 mb-4">
+        <section class="card border-0 py-1 p-md-2 p-xl-3 p-xxl-4">
             <div class="card-body">
                 <div class="d-flex align-items-center mt-sm-n1 pb-4 mb-0 mb-lg-1 mb-xl-3">
                     <i class="ai-user text-primary lead pe-1 me-2"></i>
@@ -106,7 +106,7 @@
             </div>
         </section>
 
-        <section class="card border-0 py-1 p-md-2 p-xl-3 p-xxl-4 mb-4">
+        <section class="card border-0 py-1 p-md-2 p-xl-3 p-xxl-4">
             <div class="card-body">
                 <div class="d-flex align-items-center pb-4 mt-sm-n1 mb-0 mb-lg-1 mb-xl-3"><i
                         class="ai-lock-closed text-primary lead pe-1 me-2"></i>
@@ -289,7 +289,7 @@ const deleteMember = async () => {
     }
 
     try {
-        // await axios.delete(`/api/members/${member.value.id}`)
+        // const response = await axios.delete(`/api/members/${member.value.id}`)
         alert('정상적으로 탈퇴되었습니다.')
         router.push('/')
     } catch (e) {
