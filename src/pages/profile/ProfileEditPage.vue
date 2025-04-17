@@ -79,10 +79,8 @@
 
                         <!-- 사용자 입력 필드 -->
                         <div v-if="isAddingSport" class="d-flex align-items-center mt-2">
-                            <input v-model="newSport" type="text" class="form-control me-2"
-                                placeholder="운동 종목을 입력하세요"
-                                maxlength="10"
-                                @keyup.enter="addSport"/>
+                            <input v-model="newSport" type="text" class="form-control me-2" placeholder="운동 종목을 입력하세요"
+                                maxlength="10" @keyup.enter="addSport" />
                             <button @click="addSport" class="btn btn-sm btn-primary">추가</button>
                             <button @click="cancelAddSport" class="btn btn-sm btn-secondary ms-2">취소</button>
                         </div>
@@ -114,35 +112,46 @@
                         class="ai-lock-closed text-primary lead pe-1 me-2"></i>
                     <h2 class="h4 mb-0">비밀번호 변경</h2>
                 </div>
+                
                 <div class="row align-items-center g-3 g-sm-4 pb-3">
+                    <!-- 기존 비밀번호 -->
                     <div class="col-sm-6">
                         <label class="form-label" for="current-pass">기존 비밀번호</label>
-                        <PasswordShowToggle v-model="currentPassword" id="current-pass" :disabled=true />
+                        <PasswordShowToggle v-model="currentPassword" id="current-pass" :disabled="true" />
                     </div>
-
+                
                     <div class="col-sm-6">
-                        <a class="d-inline-block fs-sm fw-semibold text-decoration-none mt-sm-4"
-                            href="account-password-recovery.html">
+                        <a class="d-inline-block fs-sm fw-semibold text-decoration-none mt-sm-4" href="account-password-recovery.html">
                             비밀번호를 잊으셨습니까?
                         </a>
                     </div>
-
+                
                     <div class="col-sm-6">
                         <label class="form-label" for="new-pass">새 비밀번호</label>
                         <PasswordShowToggle v-model="newPassword" id="new-pass" />
                     </div>
-
+                
                     <div class="col-sm-6">
                         <label class="form-label" for="confirm-pass">새 비밀번호 확인</label>
                         <PasswordShowToggle v-model="confirmPassword" id="confirm-pass" />
                     </div>
                 </div>
-                <div class="alert alert-info d-flex my-3 my-sm-4"><i class="ai-circle-info fs-xl me-2"></i>
+                
+                <!-- 경고 메시지 -->
+                <div v-if="validationErrors"
+                    class="d-flex align-items-center p-2 rounded bg-danger bg-opacity-10 text-danger small">
+                    <i class="ai-triangle-alert fs-sm me-2"></i>
+                    {{ validationErrors }}
+                </div>
+
+                <div class="alert alert-info d-flex my-3 my-sm-4">
+                    <i class="ai-circle-info fs-xl me-2"></i>
                     <p class="mb-0">비밀번호는 8자 이상 15자 이하이어야 하며, 특수문자가 포함되어야 합니다.</p>
                 </div>
+
                 <div class="d-flex justify-content-end pt-3">
                     <button class="btn btn-secondary" type="button">취소</button>
-                    <button class="btn btn-primary ms-3" type="button">비밀번호 변경</button>
+                    <button class="btn btn-primary ms-3" type="button" @click="changePassword">비밀번호 변경</button>
                 </div>
             </div>
         </section>
@@ -160,11 +169,23 @@
                     </p>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="confirm">
-                    <label class="form-check-label text-dark fw-medium" for="confirm">동의합니다. 회원 탈퇴하겠습니다.</label>
+                    <input class="form-check-input" type="checkbox" id="confirm" v-model="deleteChecked" />
+                    <label class="form-check-label text-dark fw-medium" for="confirm">
+                        동의합니다. 회원 탈퇴하겠습니다.
+                    </label>
                 </div>
+
+                <!-- 경고 메시지 -->
+                <div v-if="showDeleteError"
+                    class="d-flex align-items-center mt-2 p-2 rounded bg-danger bg-opacity-10 text-danger small">
+                    <i class="ai-triangle-alert fs-sm me-2"></i>
+                    회원 탈퇴에 동의해 주세요.
+                </div>
+
                 <div class="d-flex flex-column flex-sm-row justify-content-end pt-4 mt-sm-2 mt-md-3">
-                    <button class="btn btn-danger" type="button"><i class="ai-trash ms-n1 me-2"></i>회원 탈퇴</button>
+                    <button class="btn btn-danger" type="button" @click="deleteMember">
+                        <i class="ai-trash ms-n1 me-2"></i>회원 탈퇴
+                    </button>
                 </div>
             </div>
         </section>
@@ -175,10 +196,9 @@
 import axios from 'axios'
 import PasswordShowToggle from '@/pages/profile/components/PasswordShowToggle.vue'
 import { ref } from 'vue';
+import { useRouter } from 'vue-router'
 
-const currentPassword = ref('12345678!')
-const newPassword = ref('')
-const confirmPassword = ref('')
+const router = useRouter()
 
 // (임시) api호출해서 가져와야함
 const member = ref({
@@ -194,22 +214,8 @@ const member = ref({
     id: 'goyounjung' // 아이디
 })
 
-// (임시)
-const saveProfileChanges = async () => {
-    try {
-        // const response = await axios.put(`/api/members/${pageMemberId.value}`, member.value)
-
-        // member 변수값 보여주기
-        alert('변경된 회원 정보:\n' + JSON.stringify(member.value, null, 2));
-    } catch (error) {
-        console.error('프로필 저장 실패:', error)
-        alert('저장 중 오류가 발생했습니다.')
-    }
-}
-
 const isAddingSport = ref(false); // 운동 종목을 추가할 때 사용자 입력 필드를 보이게 할 상태
 const newSport = ref('');  // 사용자가 입력한 운동 종목을 저장
-
 const hoveredSport = ref(null);
 
 // 운동 종목 추가
@@ -234,6 +240,62 @@ const cancelAddSport = () => {
     isAddingSport.value = false;  // 입력 필드 숨김
 };
 
+// 변경사항 저장
+const saveProfileChanges = async () => {
+    try {
+        // const response = await axios.put(`/api/members/${pageMemberId.value}`, member.value)
+
+        // member 변수값 보여주기
+        alert('변경된 회원 정보:\n' + JSON.stringify(member.value, null, 2));
+        router.push('/profile/1')
+    } catch (error) {
+        console.error('프로필 저장 실패:', error)
+        alert('저장 중 오류가 발생했습니다.')
+    }
+}
+
+// 비밀번호 변경
+const currentPassword = ref('12345678!');
+const newPassword = ref('');
+const confirmPassword = ref('');
+const validationErrors = ref('');  // 하나의 오류 메시지를 저장
+
+function changePassword() {
+    // Reset validation error
+    validationErrors.value = '';
+
+    // Validate new password
+    if (!newPassword.value) {
+        validationErrors.value = '새 비밀번호를 입력해주세요.';
+        return;
+    } else if (!confirmPassword.value) {
+        validationErrors.value = '새 비밀번호 확인을 입력해주세요.';
+        return;
+    } else if (newPassword.value !== confirmPassword.value) {
+        validationErrors.value = '비밀번호가 일치하지 않습니다.';
+        return;
+    } 
+
+    alert('비밀번호가 성공적으로 변경되었습니다.');
+}
+
+const deleteChecked = ref(false)
+const showDeleteError = ref(false)
+
+const deleteMember = async () => {
+    if (!deleteChecked.value) {
+        showDeleteError.value = true
+        return
+    }
+
+    try {
+        // await axios.delete(`/api/members/${member.value.id}`)
+        alert('정상적으로 탈퇴되었습니다.')
+        router.push('/')
+    } catch (e) {
+        console.error(e)
+    }
+}
 </script>
 
 <style scoped>
