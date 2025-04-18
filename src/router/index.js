@@ -9,6 +9,7 @@ import JoinedClubsPage from "@/pages/club/JoinedClubsPage.vue";
 import JoinedAppointmentsPage from "@/pages/promise/JoinedAppointmentsPage.vue";
 import ProfilePage from "@/pages/profile/ProfilePage.vue";
 import ProfileEditPage from "@/pages/profile/ProfileEditPage.vue";
+import ChatList from "@/pages/chat/ChatList.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -22,11 +23,12 @@ const router = createRouter({
       name: "MyCreatedAppointment",
       component: MyAppointmentsPage,
     },
-    // (임시) 아래 두 줄을 다른 라우터 파일에 분리?
+    // (임시) 아래 다섯 줄을 다른 라우터 파일에 분리하자
     { path: "/joinedClubs", name: "JoinedClubs", component: JoinedClubsPage },
     { path: "/joinedAppointments", name: "JoinedAppointments", component: JoinedAppointmentsPage },
     { path: "/profile/:id", name: "Profile", component: ProfilePage },
     { path: "/profile/edit", name: "ProfileEdit", component: ProfileEditPage },
+    { path: "/chat-list", name: "ChatList", component: ChatList },
 
     ...AppointmentRoute,
     // { path: '/input', name: "Input", component: Input },

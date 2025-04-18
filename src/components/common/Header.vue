@@ -36,6 +36,10 @@
         <router-link to="/profile/edit">
             Profile Edit
         </router-link>
+        &nbsp;
+        <router-link to="/chat-list">
+            Chat List
+        </router-link>
         <hr>
     </div>
 </template>
