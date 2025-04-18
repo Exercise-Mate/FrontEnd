@@ -21,6 +21,7 @@
             My Appointments(임시)
         </router-link>
         <br><br>
+
         <router-link to="/joinedClubs">
             Joined Clubs
         </router-link>
@@ -40,6 +41,17 @@
         <router-link to="/chat-list">
             Chat List
         </router-link>
+        <br><br>
+
+        <router-link to="/club">
+            Club
+        </router-link>
+        &nbsp;
+        <router-link to="/club/manage/1">
+            ClubManage
+        </router-link>
+        <br><br>
+
         <hr>
     </div>
 </template>

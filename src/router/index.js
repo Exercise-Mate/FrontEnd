@@ -10,6 +10,7 @@ import JoinedAppointmentsPage from "@/pages/promise/JoinedAppointmentsPage.vue";
 import ProfilePage from "@/pages/profile/ProfilePage.vue";
 import ProfileEditPage from "@/pages/profile/ProfileEditPage.vue";
 import ChatList from "@/pages/chat/ChatList.vue";
+import ClubRoute from "@/router/Club";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -31,6 +32,7 @@ const router = createRouter({
     { path: "/chat-list", name: "ChatList", component: ChatList },
 
     ...AppointmentRoute,
+    ...ClubRoute,
     // { path: '/input', name: "Input", component: Input },
     // { path: '/input2', name: "Input2", component: Input2 },
     // { path: '/update', name: "Update", component: Update },
