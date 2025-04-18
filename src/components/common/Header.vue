@@ -28,6 +28,14 @@
         <router-link to="/joinedAppointments">
             Joined Appointments
         </router-link>
+        &nbsp;
+        <router-link to="/club">
+            Club
+        </router-link>
+        &nbsp;
+        <router-link to="/club/manage/1">
+            ClubManage
+        </router-link>
         <hr>
     </div>
 </template>

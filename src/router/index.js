@@ -7,6 +7,7 @@ import MyClubsPage from "@/pages/MyClubsPage.vue";
 import MyAppointmentsPage from "@/pages/promise/MyAppointmentsPage.vue";
 import JoinedClubsPage from "@/pages/club/JoinedClubsPage.vue";
 import JoinedAppointmentsPage from "@/pages/promise/JoinedAppointmentsPage.vue";
+import ClubRoute from "@/router/Club";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -25,6 +26,7 @@ const router = createRouter({
     { path: "/joinedAppointments", name: "JoinedAppointments", component: JoinedAppointmentsPage },
 
     ...AppointmentRoute,
+    ...ClubRoute,
     // { path: '/input', name: "Input", component: Input },
     // { path: '/input2', name: "Input2", component: Input2 },
     // { path: '/update', name: "Update", component: Update },
