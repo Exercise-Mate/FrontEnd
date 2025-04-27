@@ -1,5 +1,11 @@
 <template>
     <div class="container">
+        <div>
+            <input v-model="chatRoomName" placeholder="채팅방 이름 입력" />
+            <button @click="createChatRoom">채팅방 만들기</button>
+            <p v-if="chatRoomId">생성된 채팅방 ID: {{ chatRoomId }}</p>
+        </div>
+
         <div class="list-group list-group-horizontal-sm mt-5">
             <div class="list-group-item list-group-item-action text-center" :class="{ active: activeTab === 'club' }"
                 @click="activeTab = 'club'">
@@ -41,6 +47,7 @@
 <script setup>
 import { ref, computed, onMounted, watch } from 'vue'
 import { useRouter } from 'vue-router'
+import axios from 'axios';
 
 const router = useRouter()
 
@@ -52,60 +59,60 @@ const activeTab = ref('club')
 
 // (임시) api호출해서 가져와야함
 const clubs = ref([
-    {
-        id: 1,
-        name: 'DM 클라이밍 크루',
-        members: 5,
-        time: '15:01',
-        message: '클라이밍 약속 만드려고 하는데, 낼 토요일 오후 2시로 만들면 많이들 참석하실까요~~~?',
-        unreadCount: 2,
-        imgUrl: 'assets/img/blog/list/04.jpg'
-    },
-    {
-        id: 2,
-        name: '강남 배드민턴 모임',
-        members: 8,
-        time: '14:23',
-        message: '오늘 저녁 7시 게임 있으니 라켓 꼭 챙기세요!',
-        unreadCount: 4,
-        imgUrl: 'assets/img/blog/list/01.jpg'
-    },
-    {
-        id: 3,
-        name: '주말 농구 크루',
-        members: 12,
-        time: '13:10',
-        message: '이번 주 일요일에 체육관 예약 완료했습니다!',
-        unreadCount: 0,
-        imgUrl: 'assets/img/blog/list/02.jpg'
-    },
-    {
-        id: 4,
-        name: '테니스 러버스',
-        members: 6,
-        time: '12:45',
-        message: '신입 회원 모집 중입니다 :)',
-        unreadCount: 1,
-        imgUrl: 'assets/img/blog/list/03.jpg'
-    },
-    {
-        id: 5,
-        name: '서울 러닝 클럽',
-        members: 20,
-        time: '11:05',
-        message: '이번 주 토요일 오전 9시에 한강 러닝!',
-        unreadCount: 5,
-        imgUrl: 'assets/img/blog/list/05.jpg'
-    },
-    {
-        id: 6,
-        name: '강동 풋살 팀',
-        members: 10,
-        time: '10:33',
-        message: '수요일 밤 9시 경기 있습니다. 유니폼 꼭 착용!',
-        unreadCount: 3,
-        imgUrl: 'assets/img/blog/list/06.jpg'
-    },
+    // {
+    //     id: 1,
+    //     name: 'DM 클라이밍 크루',
+    //     members: 5,
+    //     time: '15:01',
+    //     message: '클라이밍 약속 만드려고 하는데, 낼 토요일 오후 2시로 만들면 많이들 참석하실까요~~~?',
+    //     unreadCount: 2,
+    //     imgUrl: 'assets/img/blog/list/04.jpg'
+    // },
+    // {
+    //     id: 2,
+    //     name: '강남 배드민턴 모임',
+    //     members: 8,
+    //     time: '14:23',
+    //     message: '오늘 저녁 7시 게임 있으니 라켓 꼭 챙기세요!',
+    //     unreadCount: 4,
+    //     imgUrl: 'assets/img/blog/list/01.jpg'
+    // },
+    // {
+    //     id: 3,
+    //     name: '주말 농구 크루',
+    //     members: 12,
+    //     time: '13:10',
+    //     message: '이번 주 일요일에 체육관 예약 완료했습니다!',
+    //     unreadCount: 0,
+    //     imgUrl: 'assets/img/blog/list/02.jpg'
+    // },
+    // {
+    //     id: 4,
+    //     name: '테니스 러버스',
+    //     members: 6,
+    //     time: '12:45',
+    //     message: '신입 회원 모집 중입니다 :)',
+    //     unreadCount: 1,
+    //     imgUrl: 'assets/img/blog/list/03.jpg'
+    // },
+    // {
+    //     id: 5,
+    //     name: '서울 러닝 클럽',
+    //     members: 20,
+    //     time: '11:05',
+    //     message: '이번 주 토요일 오전 9시에 한강 러닝!',
+    //     unreadCount: 5,
+    //     imgUrl: 'assets/img/blog/list/05.jpg'
+    // },
+    // {
+    //     id: 6,
+    //     name: '강동 풋살 팀',
+    //     members: 10,
+    //     time: '10:33',
+    //     message: '수요일 밤 9시 경기 있습니다. 유니폼 꼭 착용!',
+    //     unreadCount: 3,
+    //     imgUrl: 'assets/img/blog/list/06.jpg'
+    // },
 ])
 
 // (임시) api호출해서 가져와야함
@@ -215,13 +222,42 @@ const currentChats = computed(() => {
     return activeTab.value === 'club' ? clubs.value : appointments.value
 })
 
-// 새로고침해도 현재 탭 유지
+const getClubChatList = async () =>{
+    try {
+        const response = await axios.get('http://localhost:8080/chat-rooms');
+        clubs.value = response.data;
+    } catch (error) {
+        console.error("Error fetching chat rooms:", error);
+    }
+}
+
+const chatRoomName = ref('');
+const chatRoomId = ref(null);
+
+const createChatRoom = async () => {
+  if (!chatRoomName.value) {
+    alert('채팅방 이름을 입력해주세요!');
+    return;
+  }
+
+  try {
+    const response = await axios.post('http://localhost:8080/chat-room', chatRoomName.value);
+    chatRoomId.value = response.data;
+  } catch (error) {
+    alert('채팅방 생성에 실패했습니다!');
+  }
+};
+
 onMounted(() => {
+    // 새로고침해도 현재 탭 유지
     const savedTab = localStorage.getItem('activeTab')
     if (savedTab === 'appointment') {
         activeTab.value = 'appointment'
     }
+
+    getClubChatList();
 })
+
 watch(activeTab, (newVal) => {
     localStorage.setItem('activeTab', newVal)
 })

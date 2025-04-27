@@ -11,6 +11,7 @@ import ProfilePage from "@/pages/profile/ProfilePage.vue";
 import ProfileEditPage from "@/pages/profile/ProfileEditPage.vue";
 import ChatList from "@/pages/chat/ChatList.vue";
 import ClubRoute from "@/router/Club";
+import Chat from "@/pages/chat/Chat.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -30,6 +31,7 @@ const router = createRouter({
     { path: "/profile/:id", name: "Profile", component: ProfilePage },
     { path: "/profile/edit", name: "ProfileEdit", component: ProfileEditPage },
     { path: "/chat-list", name: "ChatList", component: ChatList },
+    { path: "/chat/:id", name: "Chat", component: Chat },
 
     ...AppointmentRoute,
     ...ClubRoute,
