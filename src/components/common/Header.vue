@@ -41,6 +41,10 @@
         <router-link to="/chat-list">
             Chat List
         </router-link>
+        &nbsp;
+        <router-link to="/chat">
+            Chat
+        </router-link>
         <br><br>
 
         <router-link to="/club">
